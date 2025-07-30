@@ -52,21 +52,48 @@ function throwIfDirty(done) {
   });
 }
 
+// function pushToGithub(done) {
+//   const lastCommitMessage = child_process.execSync('git show -s --format=%B HEAD').toString();
+//   child_process.exec(`cd dist && git add . && git commit -m "${lastCommitMessage}" && git push`, (err, stdout, stderr) => {
+//     if(err && stdout.match(/nothing to commit/)) {
+//       console.warn("nothing changed, not pushing to github");
+//       return done();
+//     }
+//     console.log(stdout, stderr);
+//     done(err)
+//   });
+// }
+
+// function pushHTMLToWebserver(done) {
+//   child_process.exec(`scp -r dist/*.html tom@dirt.shea.at:/srv/web/tom.shea.at/website`, done);
+// }
+
+
 function pushToGithub(done) {
-  const lastCommitMessage = child_process.execSync('git show -s --format=%B HEAD').toString();
-  child_process.exec(`cd dist && git add . && git commit -m "${lastCommitMessage}" && git push`, (err, stdout, stderr) => {
-    if(err && stdout.match(/nothing to commit/)) {
+  const lastCommitMessage = child_process.execSync('git show -s --format=%B HEAD').toString().trim();
+
+  // cd 到 dist，确保在 gh-pages 分支，添加、提交、推送到 origin gh-pages 分支
+  const cmd = `
+    cd dist && \
+    git checkout gh-pages || git checkout -b gh-pages && \
+    git add . && \
+    git commit -m "${lastCommitMessage}" && \
+    git push origin gh-pages
+  `;
+
+  child_process.exec(cmd, (err, stdout, stderr) => {
+    if (err && stdout && stdout.includes('nothing to commit')) {
       console.warn("nothing changed, not pushing to github");
       return done();
     }
-    console.log(stdout, stderr);
-    done(err)
+    console.log(stdout);
+    console.error(stderr);
+    done(err);
   });
 }
 
-function pushHTMLToWebserver(done) {
-  child_process.exec(`scp -r dist/*.html tom@dirt.shea.at:/srv/web/tom.shea.at/website`, done);
-}
+module.exports = pushToGithub;
+
 
 gulp.task(buildHTML);
 gulp.task(buildJS);
