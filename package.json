@@ -1,0 +1,29 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "description": "sly",
+  "scripts": {
+    "build": "gulp build",
+    "publish": "gulp publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lyssom/website.git"
+  },
+  "author": "Tom Shea <tom@shea.at>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Thristhart/website/issues"
+  },
+  "homepage": "https://tom.shea.at",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^7.0.1",
+    "gulp-clean-css": "^3.9.4",
+    "gulp-htmlmin": "^4.0.0",
+    "gulp-replace": "^1.0.0",
+    "gulp-uglify": "^3.0.0"
+  }
+}

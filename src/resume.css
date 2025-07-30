@@ -1,0 +1,104 @@
+body {
+  font-family: Roboto, Sans-Serif;
+  font-size: 16px;
+  margin: 2em;
+}
+
+h1 {
+  width: 100%;
+  border-bottom: 1px solid #999;
+}
+
+
+#bio {
+  margin-left: 2em;
+  margin-right: 2em;
+  
+  position: relative;
+  
+  padding-right: 16em;
+}
+
+#resume {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#skills {
+  flex-grow: 1;
+  flex-basis: 100%;
+  margin-left: 2em;
+}
+#jobs, #projects {
+  flex-grow: 1;
+  margin-left: 2em;
+  margin-right: 2em;
+  flex-basis: 1px;
+}
+
+.job {
+  border: 1px solid black;
+  border-radius: 0.5em;
+  padding: 2em;
+  margin-bottom: 1em;
+  background: url('./pattern.jpg');
+}
+
+.project {
+  border: 1px solid black;
+  border-radius: 0.5em;
+  padding: 2em;
+  margin-bottom: 1em;
+  background: url('./pattern.jpg');
+}
+
+h4 {
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+}
+.daterange {
+  font-style: italic;
+  font-size: 0.7em;
+}
+
+@media only screen and (max-width: 1100px) {
+  #resume {
+    flex-direction: column;
+  }
+  #skills {
+    flex-basis: initial;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  #bio {
+    padding-right: 0;
+  }
+  #bio img {
+    position: relative;
+    float: right;
+  }
+  body {
+    margin: 0;
+  }
+  
+  #jobs, #projects, #skills {
+    margin: 0;
+  }
+  
+  h1, h2 {
+    padding-left: 0.5em;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  #bio img {
+    transform: none;
+  }
+}
+@media only screen and (max-width: 200px) {
+  #bio img {
+    display: none;
+  }
+}
