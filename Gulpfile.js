@@ -54,7 +54,7 @@ function throwIfDirty(done) {
 
 function pushToGithub(done) {
   const lastCommitMessage = child_process.execSync('git show -s --format=%B HEAD').toString();
-  child_process.exec(`git add . && git commit -m "${lastCommitMessage}" && git push`, (err, stdout, stderr) => {
+  child_process.exec(`git push`, (err, stdout, stderr) => {
     if(err && stdout.match(/nothing to commit/)) {
       console.warn("nothing changed, not pushing to github");
       return done();
