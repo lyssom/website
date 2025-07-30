@@ -74,11 +74,7 @@ function pushToGithubPages(done) {
 
   // cd 到 dist，确保在 gh-pages 分支，添加、提交、推送到 origin gh-pages 分支
   const cmd = `
-    cd dist && \
-    git checkout gh-pages || git checkout -b gh-pages && \
-    git add . && \
-    git commit -m "${lastCommitMessage}" && \
-    git push origin gh-pages
+    cd dist && git checkout gh-pages && git add . && git commit -m "mod resume" && git push origin gh-pages
   `;
 
   child_process.exec(cmd, (err, stdout, stderr) => {
