@@ -78,6 +78,10 @@ function pushToGithubPages(done) {
   `;
 
   child_process.exec(cmd, (err, stdout, stderr) => {
+    console.log("---");
+    console.log(stdout);
+    console.log(err);
+    console.error(stderr);
     if (err && stdout && stdout.includes('nothing to commit')) {
       console.warn("nothing changed, not pushing to github");
       return done();
