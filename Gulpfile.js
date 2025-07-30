@@ -104,5 +104,5 @@ gulp.task("build", gulp.parallel(buildHTML, buildJS, buildCSS, copyAssets));
 gulp.task(pushToGithub);
 // gulp.task(pushHTMLToWebserver);
 
-gulp.task("deploy", gulp.series(throwIfDirty, pushToGithubPages));
+gulp.task("deploy", gulp.series(throwIfDirty, pushToGithub,pushToGithubPages));
 gulp.task("publish", gulp.series("build", "deploy"));
