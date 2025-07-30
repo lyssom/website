@@ -52,24 +52,24 @@ function throwIfDirty(done) {
   });
 }
 
-// function pushToGithub(done) {
-//   const lastCommitMessage = child_process.execSync('git show -s --format=%B HEAD').toString();
-//   child_process.exec(`cd dist && git add . && git commit -m "${lastCommitMessage}" && git push`, (err, stdout, stderr) => {
-//     if(err && stdout.match(/nothing to commit/)) {
-//       console.warn("nothing changed, not pushing to github");
-//       return done();
-//     }
-//     console.log(stdout, stderr);
-//     done(err)
-//   });
-// }
-
-// function pushHTMLToWebserver(done) {
-//   child_process.exec(`scp -r dist/*.html tom@dirt.shea.at:/srv/web/tom.shea.at/website`, done);
-// }
-
-
 function pushToGithub(done) {
+  const lastCommitMessage = child_process.execSync('git show -s --format=%B HEAD').toString();
+  child_process.exec(`git add . && git commit -m "${lastCommitMessage}" && git push`, (err, stdout, stderr) => {
+    if(err && stdout.match(/nothing to commit/)) {
+      console.warn("nothing changed, not pushing to github");
+      return done();
+    }
+    console.log(stdout, stderr);
+    done(err)
+  });
+}
+
+function pushHTMLToWebserver(done) {
+  child_process.exec(`scp -r dist/*.html tom@dirt.shea.at:/srv/web/tom.shea.at/website`, done);
+}
+
+
+function pushToGithubPages(done) {
   const lastCommitMessage = child_process.execSync('git show -s --format=%B HEAD').toString().trim();
 
   // cd 到 dist，确保在 gh-pages 分支，添加、提交、推送到 origin gh-pages 分支
@@ -104,5 +104,5 @@ gulp.task("build", gulp.parallel(buildHTML, buildJS, buildCSS, copyAssets));
 gulp.task(pushToGithub);
 // gulp.task(pushHTMLToWebserver);
 
-gulp.task("deploy", gulp.series(throwIfDirty, pushToGithub));
+gulp.task("deploy", gulp.series(throwIfDirty, pushToGithubPages));
 gulp.task("publish", gulp.series("build", "deploy"));
